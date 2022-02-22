@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { getTests } from '../redux/actions/testActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface Test {
 	_id: string;
@@ -11,18 +12,12 @@ interface TestItemsProps {
 }
 
 const TestItems = ({ title }: TestItemsProps) => {
-	const [tests, setTests] = useState([]);
-
-	const fetchData = async () => {
-		const res = await axios.get(
-			'https://full-stack-basic-backend.herokuapp.com/api/tests'
-		);
-		setTests(res.data);
-	};
+	const dispatch = useDispatch();
+	const tests = useSelector((state: any) => state.testReducer.tests);
 
 	useEffect(() => {
-		fetchData();
-	}, []);
+		dispatch(getTests());
+	}, [dispatch]);
 
 	return (
 		<>
