@@ -11,7 +11,6 @@ import uri from '../../domain';
 //get tests
 
 export const getTests = () => async (dispatch) => {
-	console.log('getTests action fired');
 	try {
 		const res = await axios.get(`${uri}/api/tests`);
 
@@ -27,7 +26,6 @@ export const getTests = () => async (dispatch) => {
 //create test
 
 export const createTest = (formData) => async (dispatch) => {
-	console.log('createTest action fired', formData);
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -50,7 +48,6 @@ export const createTest = (formData) => async (dispatch) => {
 //delete test by id
 
 export const deleteTest = (id) => async (dispatch) => {
-	console.log('deleteTest action fired', id);
 	try {
 		await axios.delete(`${uri}/api/tests/${id}`);
 
@@ -66,7 +63,6 @@ export const deleteTest = (id) => async (dispatch) => {
 //update test by id
 
 export const updateTest = (id, formData) => async (dispatch) => {
-	console.log('updateTest action fired', id);
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -88,7 +84,6 @@ export const updateTest = (id, formData) => async (dispatch) => {
 //update isEditing
 
 export const updateIsEditing = (payload) => (dispatch) => {
-	console.log('updateIsEditing action fired', payload);
 	dispatch({
 		type: UPDATE_ISEDITING,
 		payload: payload,
