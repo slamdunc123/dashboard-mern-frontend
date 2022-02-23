@@ -6,9 +6,7 @@ import {
 	UPDATE_ISEDITING,
 } from './types';
 import axios from 'axios';
-// import uri from '../../domain';
-
-const uri = 'https://full-stack-basic-backend.herokuapp.com'
+import uri from '../../domain';
 
 //get tests
 
