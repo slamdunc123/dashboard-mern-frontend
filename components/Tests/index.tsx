@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { MouseEvent, useState, useEffect } from 'react';
 import TestFormAdd from './TestFormAdd';
 import TestFormUpdate from './TestFormUpdate';
 import TestItems from './TestItems';
@@ -24,10 +24,12 @@ const Tests = () => {
 		id: '',
 		name: '',
 	});
+	const [showForm, setShowForm] = useState(false);
 
 	const handleCreateTest = (formData: object) => {
 		dispatch(createTest(formData));
 		dispatch(updateIsEditing(false));
+        setShowForm(false);
 	};
 
 	const handleDeleteOnClick = (id: string) => {
@@ -40,19 +42,22 @@ const Tests = () => {
 			id: test._id,
 			name: test.name,
 		});
+		setShowForm(true);
 	};
 
-	const handleUpdateTest = (formData: object) => {
-		dispatch(updateTest(editedTest.id, formData));
+	const handleUpdateOnClick = (formData: object) => {
+        dispatch(updateTest(editedTest.id, formData));
 		dispatch(updateIsEditing(false));
-		handleResetEditedTest();
+		setShowForm(false);
 	};
 
-	const handleResetEditedTest = () => {
-		setEditedTest({
+	const handleCancelOnClick = () => {
+		dispatch(updateIsEditing(false));
+        setEditedTest({
 			id: '',
 			name: '',
 		});
+		setShowForm(false);
 	};
 
 	useEffect(() => {
@@ -60,26 +65,34 @@ const Tests = () => {
 	}, [dispatch]);
 	return (
 		<>
-			<TestItems
-				title='Test Items'
-				tests={tests}
-				isEditing={isEditing}
-				handleDeleteOnClick={handleDeleteOnClick}
-				handleEditOnClick={handleEditOnClick}
-			/>
-			{isEditing ? (
-				<TestFormUpdate
-					title='Update Test'
-					editedTest={editedTest}
-					handleUpdateTest={handleUpdateTest}
-					handleResetEditedTest={handleResetEditedTest}
-
+			{!showForm && (
+				<button onClick={() => setShowForm(true)}>Add Test</button>
+			)}
+			{!showForm ? (
+				<TestItems
+					title='Test Items'
+					tests={tests}
+					isEditing={isEditing}
+					handleDeleteOnClick={handleDeleteOnClick}
+					handleEditOnClick={handleEditOnClick}
 				/>
 			) : (
-				<TestFormAdd
-					title='Add Test'
-					handleCreateTest={handleCreateTest}
-				/>
+				<>
+					{isEditing ? (
+						<TestFormUpdate
+							title='Update Test'
+							editedTest={editedTest}
+							handleUpdateOnClick={handleUpdateOnClick}
+							handleCancelOnClick={handleCancelOnClick}
+						/>
+					) : (
+						<TestFormAdd
+							title='Add Test'
+							handleCreateTest={handleCreateTest}
+							handleCancelOnClick={handleCancelOnClick}
+						/>
+					)}
+				</>
 			)}
 		</>
 	);

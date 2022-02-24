@@ -1,38 +1,32 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 interface TestFormAddProps {
 	title: string;
 	handleCreateTest: (formData: object) => void;
+	handleCancelOnClick: () => void;
 }
 
 const TestFormAdd = ({
 	title,
 	handleCreateTest,
+	handleCancelOnClick,
 }: TestFormAddProps) => {
 	const [formData, setFormData] = useState({
+		id: '',
 		name: '',
 	});
 
 	const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setFormData({
+			...formData,
 			[e.target.name]: e.target.value,
 		} as any);
 	};
 
-	const handleAddOnClick = (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
+	const handleAddOnClick = () => {
 		handleCreateTest(formData);
-		setFormData({
-			name: '',
-		});
 	};
 
-	const handleCancelOnClick = (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		setFormData({
-			name: '',
-		});
-	};
 	return (
 		<>
 			<h3>{title}</h3>
@@ -50,11 +44,7 @@ const TestFormAdd = ({
 				>
 					Add
 				</button>
-				<button
-					type='button'
-					onClick={handleCancelOnClick}
-					disabled={formData.name === ''}
-				>
+				<button type='button' onClick={handleCancelOnClick}>
 					Cancel
 				</button>
 			</form>

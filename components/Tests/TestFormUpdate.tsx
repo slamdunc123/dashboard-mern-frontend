@@ -1,50 +1,39 @@
-import React, { MouseEvent, ChangeEvent, useState, useEffect } from 'react';
-import { updateIsEditing } from '../../redux/actions/testActions';
-import { useDispatch } from 'react-redux';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 interface Test {
-    id: string,
-    name: string
+	id: string;
+	name: string;
 }
 
 interface TestFormUpdateProps {
 	title: string;
-    editedTest: Test,
-	handleUpdateTest: (formData: object) => void;
-    handleResetEditedTest: () => void
+	editedTest: Test;
+	handleCancelOnClick: () => void;
+	handleUpdateOnClick: (formData: object) => void;
 }
 
-const TestFormUpdate = ({ title, editedTest, handleUpdateTest, handleResetEditedTest }: TestFormUpdateProps) => {
-    const dispatch = useDispatch()
+const TestFormUpdate = ({
+	title,
+	editedTest,
+	handleUpdateOnClick,
+	handleCancelOnClick,
+}: TestFormUpdateProps) => {
 	const [formData, setFormData] = useState({
+		id: '',
 		name: '',
 	});
 
 	const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setFormData({ [e.target.name]: e.target.value } as any);
+		setFormData({ ...formData, [e.target.name]: e.target.value } as any);
 	};
 
-	const handleUpdateOnClick = (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		handleUpdateTest(formData);
-		setFormData({ name: '' });
-	};
+	useEffect(() => {
+		setFormData(editedTest);
+	}, [editedTest]);
 
-	const handleCancelOnClick = (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		dispatch(updateIsEditing(false));
-        handleResetEditedTest()
-	};
-
-    useEffect(() => {
-    setFormData({
-        name: editedTest.name
-    })
-    
-    }, [editedTest.name])
-    
 	return (
 		<>
+			{console.log('update', formData)}
 			<h3>{title}</h3>
 			<form>
 				<input
@@ -53,7 +42,11 @@ const TestFormUpdate = ({ title, editedTest, handleUpdateTest, handleResetEdited
 					value={formData.name}
 					onChange={handleOnChange}
 				/>
-				<button type='button' onClick={handleUpdateOnClick}>
+				<button
+					type='button'
+					onClick={() => handleUpdateOnClick(formData)}
+					disabled={formData.name === ''}
+				>
 					Update
 				</button>
 				<button type='button' onClick={handleCancelOnClick}>

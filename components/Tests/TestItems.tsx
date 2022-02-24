@@ -28,17 +28,17 @@ const TestItems = ({
 							<li>{test.name}</li>
 							<button
 								type='button'
-								onClick={() => handleDeleteOnClick(test._id)}
-								disabled={isEditing}
-							>
-								delete
-							</button>
-							<button
-								type='button'
 								onClick={() => handleEditOnClick(test)}
 								disabled={isEditing}
 							>
-								edit
+								Edit
+							</button>
+							<button
+								type='button'
+								onClick={() => handleDeleteOnClick(test._id)}
+								disabled={isEditing}
+							>
+								Delete
 							</button>
 						</div>
 					);
