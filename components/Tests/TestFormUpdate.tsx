@@ -33,7 +33,6 @@ const TestFormUpdate = ({
 
 	return (
 		<>
-			{console.log('update', formData)}
 			<h3>{title}</h3>
 			<form>
 				<input
