@@ -1,14 +1,14 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { FormEvent, ChangeEvent, useState } from 'react';
 
 interface TestFormAddProps {
 	title: string;
-	handleCreateTest: (formData: object) => void;
+	handleAddOnClick: (e: FormEvent<HTMLFormElement>, formData: object) => void;
 	handleCancelOnClick: () => void;
 }
 
 const TestFormAdd = ({
 	title,
-	handleCreateTest,
+	handleAddOnClick,
 	handleCancelOnClick,
 }: TestFormAddProps) => {
 	const [formData, setFormData] = useState({
@@ -23,14 +23,10 @@ const TestFormAdd = ({
 		} as any);
 	};
 
-	const handleAddOnClick = () => {
-		handleCreateTest(formData);
-	};
-
 	return (
 		<>
 			<h3>{title}</h3>
-			<form onSubmit={handleAddOnClick}>
+			<form onSubmit={(e) => handleAddOnClick(e, formData)}>
 				<input
 					type='text'
 					name='name'

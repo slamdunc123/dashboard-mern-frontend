@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState, useEffect } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import TestFormAdd from './TestFormAdd';
 import TestFormUpdate from './TestFormUpdate';
 import TestItems from './TestItems';
@@ -26,10 +26,14 @@ const Tests = () => {
 	});
 	const [showForm, setShowForm] = useState(false);
 
-	const handleCreateTest = (formData: object) => {
+	const handleAddOnClick = (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => {
+		e.preventDefault();
 		dispatch(createTest(formData));
 		dispatch(updateIsEditing(false));
-        setShowForm(false);
+		setShowForm(false);
 	};
 
 	const handleDeleteOnClick = (id: string) => {
@@ -45,15 +49,19 @@ const Tests = () => {
 		setShowForm(true);
 	};
 
-	const handleUpdateOnClick = (formData: object) => {
-        dispatch(updateTest(editedTest.id, formData));
+	const handleUpdateOnClick = (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => {
+		e.preventDefault();
+		dispatch(updateTest(editedTest.id, formData));
 		dispatch(updateIsEditing(false));
 		setShowForm(false);
 	};
 
 	const handleCancelOnClick = () => {
 		dispatch(updateIsEditing(false));
-        setEditedTest({
+		setEditedTest({
 			id: '',
 			name: '',
 		});
@@ -88,7 +96,7 @@ const Tests = () => {
 					) : (
 						<TestFormAdd
 							title='Add Test'
-							handleCreateTest={handleCreateTest}
+							handleAddOnClick={handleAddOnClick}
 							handleCancelOnClick={handleCancelOnClick}
 						/>
 					)}

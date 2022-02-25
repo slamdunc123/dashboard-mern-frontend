@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { FormEvent, ChangeEvent, useState, useEffect } from 'react';
 
 interface Test {
 	id: string;
@@ -9,7 +9,10 @@ interface TestFormUpdateProps {
 	title: string;
 	editedTest: Test;
 	handleCancelOnClick: () => void;
-	handleUpdateOnClick: (formData: object) => void;
+	handleUpdateOnClick: (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => void;
 }
 
 const TestFormUpdate = ({
@@ -34,7 +37,7 @@ const TestFormUpdate = ({
 	return (
 		<>
 			<h3>{title}</h3>
-			<form onSubmit={() => handleUpdateOnClick(formData)}>
+			<form onSubmit={(e) => handleUpdateOnClick(e, formData)}>
 				<input
 					type='text'
 					name='name'
