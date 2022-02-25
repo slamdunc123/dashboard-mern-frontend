@@ -30,18 +30,14 @@ const TestFormAdd = ({
 	return (
 		<>
 			<h3>{title}</h3>
-			<form>
+			<form onSubmit={handleAddOnClick}>
 				<input
 					type='text'
 					name='name'
 					value={formData.name}
 					onChange={handleInputOnChange}
 				/>
-				<button
-					type='button'
-					onClick={handleAddOnClick}
-					disabled={formData.name === ''}
-				>
+				<button type='submit' disabled={formData.name === ''}>
 					Add
 				</button>
 				<button type='button' onClick={handleCancelOnClick}>

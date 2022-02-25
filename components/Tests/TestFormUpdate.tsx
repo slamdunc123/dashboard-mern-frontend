@@ -34,18 +34,14 @@ const TestFormUpdate = ({
 	return (
 		<>
 			<h3>{title}</h3>
-			<form>
+			<form onSubmit={() => handleUpdateOnClick(formData)}>
 				<input
 					type='text'
 					name='name'
 					value={formData.name}
 					onChange={handleOnChange}
 				/>
-				<button
-					type='button'
-					onClick={() => handleUpdateOnClick(formData)}
-					disabled={formData.name === ''}
-				>
+				<button type='submit' disabled={formData.name === ''}>
 					Update
 				</button>
 				<button type='button' onClick={handleCancelOnClick}>
