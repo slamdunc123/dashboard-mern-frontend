@@ -10,6 +10,9 @@ import {
 	updateTest,
 } from '../../redux/actions/testActions';
 import { useDispatch, useSelector } from 'react-redux';
+import {Button} from '@mui/material'
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
 
 interface Test {
 	_id: string;
@@ -74,7 +77,7 @@ const Tests = () => {
 	return (
 		<>
 			{!showForm && (
-				<button onClick={() => setShowForm(true)}>Add Test</button>
+				<Button onClick={() => setShowForm(true)}><AddCircleIcon /></Button>
 			)}
 			{!showForm ? (
 				<TestItems
@@ -84,6 +87,7 @@ const Tests = () => {
 					handleDeleteOnClick={handleDeleteOnClick}
 					handleEditOnClick={handleEditOnClick}
 				/>
+                
 			) : (
 				<>
 					{isEditing ? (

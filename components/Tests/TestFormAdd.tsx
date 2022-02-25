@@ -1,4 +1,8 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
+import { Button, ButtonGroup, Typography, TextField, Box } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { flexbox } from '@mui/system';
 
 interface TestFormAddProps {
 	title: string;
@@ -25,20 +29,47 @@ const TestFormAdd = ({
 
 	return (
 		<>
-			<h3>{title}</h3>
+			<Typography variant='h5'>{title}</Typography>
 			<form onSubmit={(e) => handleAddOnClick(e, formData)}>
-				<input
-					type='text'
-					name='name'
-					value={formData.name}
-					onChange={handleInputOnChange}
-				/>
-				<button type='submit' disabled={formData.name === ''}>
-					Add
-				</button>
-				<button type='button' onClick={handleCancelOnClick}>
-					Cancel
-				</button>
+				<Box
+					sx={{
+                        width: 300,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                        padding: 1,
+					}}
+				>
+					<TextField
+						id='standard-basic'
+						label='Name'
+						variant='standard'
+						type='text'
+						name='name'
+						value={formData.name}
+						onChange={handleInputOnChange}
+					/>
+					<ButtonGroup>
+						<Button
+							type='submit'
+							disabled={formData.name === ''}
+							size='small'
+							color='info'
+							variant='text'
+						>
+							<CheckCircleIcon />
+						</Button>
+						<Button
+							type='button'
+							onClick={handleCancelOnClick}
+							size='small'
+							color='info'
+							variant='text'
+						>
+							<CancelIcon />
+						</Button>
+					</ButtonGroup>
+				</Box>
 			</form>
 		</>
 	);

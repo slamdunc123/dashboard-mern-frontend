@@ -1,3 +1,14 @@
+import {
+	List,
+	ListItem,
+	Typography,
+	Button,
+	ButtonGroup,
+	Box,
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 interface Test {
 	_id: string;
 	name: string;
@@ -6,7 +17,7 @@ interface Test {
 interface TestItemsProps {
 	title: string;
 	tests: Test[];
-    isEditing: boolean,
+	isEditing: boolean;
 	handleDeleteOnClick: (id: string) => void;
 	handleEditOnClick: (test: Test) => void;
 }
@@ -14,36 +25,55 @@ interface TestItemsProps {
 const TestItems = ({
 	title,
 	tests,
-    isEditing,
+	isEditing,
 	handleDeleteOnClick,
 	handleEditOnClick,
 }: TestItemsProps) => {
 	return (
 		<>
-			<h3>{title}</h3>
-			<ul>
+			<Typography variant='h5'>{title}</Typography>
+			<List>
 				{tests.map((test: Test) => {
 					return (
-						<div key={test._id}>
-							<li>{test.name}</li>
-							<button
-								type='button'
-								onClick={() => handleEditOnClick(test)}
-								disabled={isEditing}
-							>
-								Edit
-							</button>
-							<button
-								type='button'
-								onClick={() => handleDeleteOnClick(test._id)}
-								disabled={isEditing}
-							>
-								Delete
-							</button>
-						</div>
+						<ListItem
+							key={test._id}
+							sx={{
+								width: 300,
+								display: 'flex',
+								justifyContent: 'space-between',
+								alignItems: 'flex-end',
+								padding: 1,
+							}}
+						>
+							<Typography>{test.name}</Typography>
+							<ButtonGroup>
+								<Button
+									type='button'
+									onClick={() => handleEditOnClick(test)}
+									disabled={isEditing}
+									size='small'
+									color='info'
+									variant='text'
+								>
+									<EditIcon />
+								</Button>
+								<Button
+									type='button'
+									onClick={() =>
+										handleDeleteOnClick(test._id)
+									}
+									disabled={isEditing}
+									size='small'
+									color='error'
+									variant='text'
+								>
+									<DeleteForeverIcon />
+								</Button>
+							</ButtonGroup>
+						</ListItem>
 					);
 				})}
-			</ul>
+			</List>
 		</>
 	);
 };
