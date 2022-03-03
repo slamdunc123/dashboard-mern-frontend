@@ -9,13 +9,14 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AuthContext } from '../../context/authContext';
-
-
 import Link from 'next/link';
+
 const pages = [
-	{ url: 'tests-page', name: 'tests' },
-	{ url: 'data-fetching-options', name: 'dfo' },
+	{ url: 'tests-page', name: 'tests', access: 'private' },
+	{ url: 'data-fetching-options', name: 'dfo', access: 'public' },
 ];
+
+const filteredPages = pages.filter(page => page.access !== 'private')
 
 const NavMenu = ({ anchorElNav, handleOpenNavMenu, handleCloseNavMenu }) => {
     const { user } = useContext(AuthContext);
@@ -56,7 +57,7 @@ const NavMenu = ({ anchorElNav, handleOpenNavMenu, handleCloseNavMenu }) => {
 						display: { xs: 'block', md: 'none' },
 					}}
 				>
-					{pages.map((page, index) => (
+					{(user ? pages : filteredPages).map((page, index) =>  (
 						<MenuItem onClick={handleCloseNavMenu} key={index}>
 							<Link href={`/${page.url}`}>
 								<a>
@@ -90,7 +91,7 @@ const NavMenu = ({ anchorElNav, handleOpenNavMenu, handleCloseNavMenu }) => {
 					display: { xs: 'none', md: 'flex' },
 				}}
 			>
-				{pages.map((page, index) => (
+				{(user ? pages : filteredPages).map((page, index) => (
 					<Link href={`/${page.url}`} key={index}>
 						<a>
 							<Button

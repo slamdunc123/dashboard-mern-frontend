@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect, useContext } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import TestFormAdd from './TestFormAdd';
 import TestFormUpdate from './TestFormUpdate';
 import TestItems from './TestItems';
@@ -12,9 +12,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import {Button} from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { AuthContext } from '../../context/authContext';
-
-
 
 interface Test {
 	_id: string;
@@ -22,7 +19,6 @@ interface Test {
 }
 
 const Tests = () => {
-    const { user } = useContext(AuthContext);
 	const dispatch = useDispatch();
 	const tests = useSelector((state: any) => state.testReducer.tests);
 	const isEditing = useSelector((state: any) => state.testReducer.isEditing);
@@ -78,7 +74,6 @@ const Tests = () => {
 		dispatch(getTests());
 	}, [dispatch]);
 
-    if (!user) return <>Please log in</>
 	return (
 		<>
 			{!showForm && (

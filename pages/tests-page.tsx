@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Tests from '../components/Tests/Tests';
+import { AuthContext } from '../context/authContext';
 
 const TestsPage = () => {
-	return (
-		<>
-			<Tests />
-		</>
-	);
+	const { user } = useContext(AuthContext);
+
+	if (!user) return <>Please log in</>;
+	return <Tests />;
 };
 
 export default TestsPage;
