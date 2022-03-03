@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
 	Box,
 	IconButton,
@@ -8,6 +8,8 @@ import {
 	Button,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { AuthContext } from '../../context/authContext';
+
 
 import Link from 'next/link';
 const pages = [
@@ -16,6 +18,8 @@ const pages = [
 ];
 
 const NavMenu = ({ anchorElNav, handleOpenNavMenu, handleCloseNavMenu }) => {
+    const { user } = useContext(AuthContext);
+    
 	return (
 		<>
 			<Box

@@ -1,5 +1,5 @@
 import React from 'react';
-import Tests from '../components/Tests';
+import Tests from '../components/Tests/Tests';
 
 const TestsPage = () => {
 	return (

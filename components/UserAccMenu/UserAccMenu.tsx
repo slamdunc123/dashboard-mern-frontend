@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	Box,
 	Tooltip,
@@ -8,12 +8,21 @@ import {
 	Typography,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { AuthContext } from '../../context/authContext';
 
 const UserAccMenu = ({
 	anchorElUser,
 	handleOpenUserMenu,
 	handleCloseUserMenu,
 }) => {
+	const { user,  login, logout } = useContext(AuthContext);
+
+	const handleOnClick = () => {
+		if (user) {
+			logout();
+		} else login();
+		handleCloseUserMenu();
+	};
 	return (
 		<Box sx={{ flexGrow: 0 }}>
 			<Tooltip title='Open settings'>
@@ -40,8 +49,10 @@ const UserAccMenu = ({
 				open={Boolean(anchorElUser)}
 				onClose={handleCloseUserMenu}
 			>
-				<MenuItem onClick={handleCloseUserMenu}>
-					<Typography textAlign='center'>{'Log In'}</Typography>
+				<MenuItem onClick={handleOnClick}>
+					<Typography textAlign='center'>
+						{!user ? 'Log In' : 'Log Out'}
+					</Typography>
 				</MenuItem>
 			</Menu>
 		</Box>

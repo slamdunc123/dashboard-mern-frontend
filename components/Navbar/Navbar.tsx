@@ -2,9 +2,9 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import UserAccMenu from '../UserAccMenu';
-import NavMenu from '../NavMenu';
-import NavLogo from '../NavLogo';
+import UserAccMenu from '../UserAccMenu/UserAccMenu';
+import NavMenu from '../NavMenu/NavMenu';
+import NavLogo from '../NavLogo/NavLogo';
 
 const Navbar = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
