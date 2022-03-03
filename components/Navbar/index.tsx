@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
 
 const pages = [
@@ -157,7 +157,7 @@ const Navbar = () => {
 								onClick={handleOpenUserMenu}
 								sx={{ p: 0 }}
 							>
-								<DragIndicatorIcon fontSize='large' sx={{color: '#fff'}}/>
+								<AccountCircleIcon fontSize='large' sx={{color: '#fff'}}/>
 							</IconButton>
 						</Tooltip>
 						<Menu

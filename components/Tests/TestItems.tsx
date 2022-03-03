@@ -33,7 +33,7 @@ const TestItems = ({
 		<>
 			<Typography variant='h5'>{title}</Typography>
 			<List>
-				{tests.map((test: Test) => {
+				{tests.map((test) => {
 					return (
 						<ListItem
 							key={test._id}
