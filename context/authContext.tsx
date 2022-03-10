@@ -7,7 +7,7 @@ export const AuthContext = createContext({
 	logout: () => {},
 });
 
-const AuthContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }: any) => {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
