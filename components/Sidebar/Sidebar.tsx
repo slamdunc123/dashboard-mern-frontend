@@ -77,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-export default function SideBar({children}) {
+const Sidebar = ({children}) => {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
@@ -204,3 +204,5 @@ export default function SideBar({children}) {
 		</Box>
 	);
 };
+
+export default Sidebar;
