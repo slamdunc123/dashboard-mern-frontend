@@ -7,7 +7,7 @@ const columns: GridColDef[] = [
 		field: '_id',
 		headerName: 'ID',
 	},
-	{ field: 'first_name', headerName: 'First name' },
+	{ field: 'firstName', headerName: 'First name' },
 ];
 
 export default function CustomersDataGrid({ customers }) {
