@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebarn from '../SideBarn/SideBarn';
+import SideBarn from '../SideBarn/SideBarn';
 
 type LayoutProps = {
 	children?: React.ReactNode;
@@ -9,7 +9,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
 	return (
 		<>
-			<Sidebarn>{children}</Sidebarn>
+			<SideBarn>{children}</SideBarn>
 		</>
 	);
 }
