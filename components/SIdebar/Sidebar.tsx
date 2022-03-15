@@ -23,9 +23,8 @@ import Link from 'next/link';
 import UserAccMenu from '../UserAccMenu/UserAccMenu';
 
 type SidebarProps = {
-    children?: React.ReactNode;
-  };
-
+	children?: React.ReactNode;
+};
 
 const drawerWidth = 200;
 
@@ -78,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-const Sidebar = ({ children}: SidebarProps) => {
+const Sidebar = ({ children }: SidebarProps) => {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
@@ -90,15 +89,15 @@ const Sidebar = ({ children}: SidebarProps) => {
 		setOpen(false);
 	};
 
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
 		null
 	);
 
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElUser(event.currentTarget);
 	};
 
-    const handleCloseUserMenu = () => {
+	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
 
@@ -119,11 +118,10 @@ const Sidebar = ({ children}: SidebarProps) => {
 					<Typography variant='h6' noWrap component='div'>
 						Dashboard
 					</Typography>
-                    <UserAccMenu
+					<UserAccMenu
 						anchorElUser={anchorElUser}
 						handleOpenUserMenu={handleOpenUserMenu}
 						handleCloseUserMenu={handleCloseUserMenu}
-
 					/>
 				</Toolbar>
 			</AppBar>
@@ -152,10 +150,14 @@ const Sidebar = ({ children}: SidebarProps) => {
 				<Divider />
 				<List>
 					<Link href='/tests-page' passHref>
-						<ListItem button component='a' sx={{
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
+						<ListItem
+							button
+							component='a'
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+							}}
+						>
 							<ListItemIcon>
 								<QuestionMarkIcon />
 							</ListItemIcon>
@@ -163,10 +165,14 @@ const Sidebar = ({ children}: SidebarProps) => {
 						</ListItem>
 					</Link>
 					<Link href='/customers' passHref>
-						<ListItem button component='a' sx={{
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
+						<ListItem
+							button
+							component='a'
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+							}}
+						>
 							<ListItemIcon>
 								<PeopleIcon />
 							</ListItemIcon>
@@ -175,7 +181,7 @@ const Sidebar = ({ children}: SidebarProps) => {
 					</Link>
 					<Link href='/analytics' passHref>
 						<ListItem button component='a'>
-                        <ListItemIcon >
+							<ListItemIcon>
 								<EqualizerIcon />
 							</ListItemIcon>
 							<ListItemText primary='Analytics' />
@@ -183,7 +189,7 @@ const Sidebar = ({ children}: SidebarProps) => {
 					</Link>
 					<Link href='/products' passHref>
 						<ListItem button component='a'>
-                        <ListItemIcon >
+							<ListItemIcon>
 								<CategoryIcon />
 							</ListItemIcon>
 							<ListItemText primary='Products' />
@@ -197,6 +203,6 @@ const Sidebar = ({ children}: SidebarProps) => {
 			</Main>
 		</Box>
 	);
-}
+};
 
-export default Sidebar
+export default Sidebar;
