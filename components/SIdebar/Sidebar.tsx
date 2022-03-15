@@ -22,6 +22,10 @@ import CategoryIcon from '@mui/icons-material/Category';
 import Link from 'next/link';
 import UserAccMenu from '../UserAccMenu/UserAccMenu';
 
+type SidebarProps = {
+    children?: React.ReactNode;
+  };
+
 
 const drawerWidth = 200;
 
@@ -74,7 +78,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-const Sidebar = ({ children }) => {
+const Sidebar = ({ children}: SidebarProps) => {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
