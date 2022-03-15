@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../Sidebar/Sidebar';
+import PersistentDrawerLeft from '../Sidebar/Sidebar';
 
 type LayoutProps = {
 	children?: React.ReactNode;
@@ -9,7 +9,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
 	return (
 		<>
-			<Sidebar>{children}</Sidebar>
+			<PersistentDrawerLeft>{children}</PersistentDrawerLeft>
 		</>
 	);
 }
