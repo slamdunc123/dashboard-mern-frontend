@@ -1,4 +1,4 @@
-import Sidebar from '../SIdebar/Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 
 export default function Layout({ children }: any) {
   return (
