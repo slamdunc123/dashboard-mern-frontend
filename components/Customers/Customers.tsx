@@ -1,27 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import uri from '../../domain';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomersDataGrid from './CustomersDataGrid';
+import { getCustomers } from '../../redux/actions/customerActions';
 
 const Customers = () => {
-	const [customers, setCustomers] = useState();
+	const dispatch = useDispatch();
+	const customers = useSelector(
+		(state: any) => state.customerReducer.customers
+	);
 
-	const getCustomers = async () => {
-		const res = await axios.get(`${uri}/api/customers`);
-		console.log(res.data);
-		setCustomers(res.data);
+	const handleEditOnClick = (row) => {
+		console.log(row);
+	};
+
+	const handleDeleteOnClick = (id) => {
+		console.log(id);
 	};
 
 	useEffect(() => {
-		getCustomers();
-	}, []);
+		dispatch(getCustomers());
+	}, [dispatch]);
 
 	return (
 		<>
-			{console.log(customers)}
-			
-			<CustomersDataGrid customers={customers}/>
-			
+			<CustomersDataGrid
+				customers={customers}
+				handleEditOnClick={handleEditOnClick}
+				handleDeleteOnClick={handleDeleteOnClick}
+			/>
 		</>
 	);
 };
