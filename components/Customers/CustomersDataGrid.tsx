@@ -1,13 +1,56 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import CircularProgress from '@mui/material/CircularProgress';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Button, ButtonGroup } from '@mui/material';
+
+const handleEditOnClick = (row) => {
+    console.log(row)
+}
+
+const handleDeleteOnClick = (id) => {
+    console.log(id);
+}
+
+const getCell = (params) => {
+	return (
+		<>
+			<ButtonGroup>
+				<Button
+					type='button'
+					onClick={() => handleEditOnClick(params.row)}
+					// disabled={isEditing}
+					size='small'
+					color='info'
+					variant='text'
+				>
+					<EditIcon />
+				</Button>
+				<Button
+					type='button'
+					onClick={() => handleDeleteOnClick(params.row._id)}
+					// disabled={isEditing}
+					size='small'
+					color='error'
+					variant='text'
+				>
+					<DeleteForeverIcon />
+				</Button>
+			</ButtonGroup>
+		</>
+	);
+};
 
 const columns: GridColDef[] = [
 	{
 		field: '_id',
 		headerName: 'ID',
 	},
-	{ field: 'firstName', headerName: 'First name' },
+	{ field: 'name', headerName: 'Name', width: 200 },
+	{ field: 'email', headerName: 'Email', width: 200 },
+	{ field: 'plan', headerName: 'Plan', width: 200 },
+	{ field: '', headerName: 'Actions', renderCell: getCell, width: 200 },
 ];
 
 export default function CustomersDataGrid({ customers }) {
@@ -21,7 +64,6 @@ export default function CustomersDataGrid({ customers }) {
 				columns={columns}
 				pageSize={5}
 				rowsPerPageOptions={[5]}
-				onRowClick={(row) => console.log(row)}
 				sx={{
 					boxShadow: 2,
 					border: 2,
