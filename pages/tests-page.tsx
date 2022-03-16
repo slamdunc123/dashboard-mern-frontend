@@ -6,7 +6,12 @@ const TestsPage = () => {
 	const { user } = useContext(AuthContext);
 
 	if (!user) return <>Please log in</>;
-	return <Tests />;
+	return (
+		<>
+			<h3>Tests</h3>
+			<Tests />
+		</>
+	);
 };
 
 export default TestsPage;

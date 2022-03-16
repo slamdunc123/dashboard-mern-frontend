@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Image from 'next/image';
 
 const Products = () => {
 	const [products, setProducts] = useState([]);
@@ -36,15 +37,20 @@ const Products = () => {
 					<div>{product.title}</div>
 					<Box
 						sx={{
-                            display: 'flex',
-                            height: '100%',
-                            // flex: 1,
-                            flexDirection: 'column',
+							display: 'flex',
+							height: '100%',
+							// flex: 1,
+							flexDirection: 'column',
 							justifyContent: 'center',
-                            alignItems: 'center'
+							alignItems: 'center',
 						}}
 					>
-						<img src={product.thumbnail} style={{maxWidth: '50%'}}/>
+						<Image
+							src={product.thumbnail}
+							alt={product.description}
+							width={150}
+							height={150}
+						/>
 					</Box>
 				</Paper>
 			))}
