@@ -26,7 +26,7 @@ export default function CustomersDataGrid({
 					</Button>
 					<Button
 						type='button'
-						onClick={() => handleDeleteOnClick(params.row._id)}
+						onClick={() => handleDeleteOnClick(params.row)}
 						// disabled={isEditing}
 						size='small'
 						color='error'
@@ -50,7 +50,7 @@ export default function CustomersDataGrid({
 		{ field: '', headerName: 'Actions', renderCell: getCell, width: 200 },
 	];
 
-	if (!customers) return <CircularProgress />;
+	if (customers.length < 1) return <CircularProgress />;
 
 	return (
 		<div style={{ height: 400, width: '100%' }}>

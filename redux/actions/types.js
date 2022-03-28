@@ -2,6 +2,7 @@ export const GET_TESTS = 'GET_TESTS';
 export const CREATE_TEST = 'CREATE_TEST';
 export const DELETE_TEST = 'DELETE_TEST';
 export const UPDATE_TEST = 'UPDATE_TEST';
-export const UPDATE_ISEDITING = "UPDATE_ISEDITING"
+export const UPDATE_ISEDITING = 'UPDATE_ISEDITING';
 
 export const GET_CUSTOMERS = 'GET_CUSTOMERS';
+export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';

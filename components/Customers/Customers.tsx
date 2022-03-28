@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomersDataGrid from './CustomersDataGrid';
-import { getCustomers } from '../../redux/actions/customerActions';
+import CustomersModal from './CustomersModal';
+import {
+	getCustomers,
+	deleteCustomer,
+} from '../../redux/actions/customerActions';
 
 const Customers = () => {
 	const dispatch = useDispatch();
@@ -9,12 +13,31 @@ const Customers = () => {
 		(state: any) => state.customerReducer.customers
 	);
 
-	const handleEditOnClick = (row) => {
-		console.log(row);
+	const [showModal, setShowModal] = useState(false);
+	const [modalType, setModalType] = useState('');
+	const [selectedRow, setSelectedRow] = useState();
+
+	const handleCloseModal = () => {
+		setShowModal(false);
 	};
 
-	const handleDeleteOnClick = (id) => {
-		console.log(id);
+	const handleEditOnClick = (row) => {
+		console.log(row);
+		setSelectedRow(row);
+		setShowModal(true);
+		setModalType('Edit');
+	};
+
+	const handleDeleteOnClick = (row) => {
+		console.log(row);
+		setSelectedRow(row);
+		setShowModal(true);
+		setModalType('Delete');
+	};
+
+	const handleDeleteConfirm = (id) => {
+		dispatch(deleteCustomer(id));
+        setShowModal(false);
 	};
 
 	useEffect(() => {
@@ -23,6 +46,13 @@ const Customers = () => {
 
 	return (
 		<>
+			<CustomersModal
+				showModal={showModal}
+				handleCloseModal={handleCloseModal}
+                handleDeleteConfirm={handleDeleteConfirm}
+				modalType={modalType}
+				selectedRow={selectedRow}
+			/>
 			<CustomersDataGrid
 				customers={customers}
 				handleEditOnClick={handleEditOnClick}

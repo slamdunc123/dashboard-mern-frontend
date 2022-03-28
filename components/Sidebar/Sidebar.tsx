@@ -12,7 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -149,21 +148,7 @@ const Sidebar = ({children}) => {
 				</DrawerHeader>
 				<Divider />
 				<List>
-					<Link href='/tests-page' passHref>
-						<ListItem
-							button
-							component='a'
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-							}}
-						>
-							<ListItemIcon>
-								<QuestionMarkIcon />
-							</ListItemIcon>
-							<ListItemText primary='Tests' />
-						</ListItem>
-					</Link>
+					
 					<Link href='/customers' passHref>
 						<ListItem
 							button
