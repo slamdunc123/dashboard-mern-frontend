@@ -9,38 +9,37 @@ export default function CustomersDataGrid({
 	customers,
 	handleEditOnClick,
 	handleDeleteOnClick,
-    isAdminUser
+	isAdminUser,
 }) {
 	const getCell = (params) => {
 		return (
 			<>
-            <Tooltip title="Admin only" placement="bottom" arrow>
-
-				<ButtonGroup>
-					<Button
-						type='button'
-						onClick={() => handleEditOnClick(params.row)}
-						// disabled={isEditing}
-						size='small'
-						color='info'
-						variant='text'
-                        disabled={!isAdminUser}
-                        >
-						<EditIcon />
-					</Button>
-					<Button
-						type='button'
-						onClick={() => handleDeleteOnClick(params.row)}
-						// disabled={isEditing}
-						size='small'
-						color='error'
-						variant='text'
-                        disabled={!isAdminUser}
-                        >
-						<DeleteForeverIcon />
-					</Button>
-				</ButtonGroup>
-                        </Tooltip>
+				<Tooltip title='Admin only' placement='bottom' arrow>
+					<ButtonGroup>
+						<Button
+							type='button'
+							onClick={() => handleEditOnClick(params.row)}
+							// disabled={isEditing}
+							size='small'
+							color='info'
+							variant='text'
+							disabled={!isAdminUser}
+						>
+							<EditIcon />
+						</Button>
+						<Button
+							type='button'
+							onClick={() => handleDeleteOnClick(params.row)}
+							// disabled={isEditing}
+							size='small'
+							color='error'
+							variant='text'
+							disabled={!isAdminUser}
+						>
+							<DeleteForeverIcon />
+						</Button>
+					</ButtonGroup>
+				</Tooltip>
 			</>
 		);
 	};

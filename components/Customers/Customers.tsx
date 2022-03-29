@@ -7,11 +7,13 @@ import {
 	deleteCustomer,
 } from '../../redux/actions/customerActions';
 import { AuthContext } from '../../context/authContext';
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { Button } from '@mui/material';
 
 const Customers = () => {
-    const {user} = useContext(AuthContext)
-    const isAdminUser = user && user.app_metadata.roles[0].includes('admin') ? true : false
+	const { user } = useContext(AuthContext);
+	const isAdminUser =
+		user && user.app_metadata.roles[0].includes('admin') ? true : false;
 	const dispatch = useDispatch();
 	const customers = useSelector(
 		(state: any) => state.customerReducer.customers
@@ -25,12 +27,32 @@ const Customers = () => {
 		setShowModal(false);
 	};
 
+    const handleCancel = () => {
+        setShowModal(false)
+    }
+
+    const handleAddOnClick = () => { 
+        setShowModal(true);
+        setModalType('Add')
+     }
+
+     const handleAddConfirm = () => {
+        setShowModal(false)
+         console.log('handle add confirm fired')
+     }
+
 	const handleEditOnClick = (row) => {
 		console.log(row);
 		setSelectedRow(row);
 		setShowModal(true);
 		setModalType('Edit');
 	};
+
+    const handleEditConfirm = (selectedRow) => {
+        setShowModal(false)
+        console.log('handle edit confirm fired')
+        console.log(selectedRow)
+    }
 
 	const handleDeleteOnClick = (row) => {
 		console.log(row);
@@ -41,7 +63,7 @@ const Customers = () => {
 
 	const handleDeleteConfirm = (id) => {
 		dispatch(deleteCustomer(id));
-        setShowModal(false);
+		setShowModal(false);
 	};
 
 	useEffect(() => {
@@ -53,15 +75,22 @@ const Customers = () => {
 			<CustomersModal
 				showModal={showModal}
 				handleCloseModal={handleCloseModal}
-                handleDeleteConfirm={handleDeleteConfirm}
+                handleAddConfirm={handleAddConfirm}
+                handleEditConfirm={handleEditConfirm}
+				handleDeleteConfirm={handleDeleteConfirm}
+                handleCancel={handleCancel}
 				modalType={modalType}
 				selectedRow={selectedRow}
 			/>
+			<Button onClick={handleAddOnClick} disabled={!isAdminUser}>
+				{<AddBoxIcon color={isAdminUser ? 'primary' : 'disabled'} />}
+			</Button>
+
 			<CustomersDataGrid
 				customers={customers}
 				handleEditOnClick={handleEditOnClick}
 				handleDeleteOnClick={handleDeleteOnClick}
-                isAdminUser={isAdminUser}
+				isAdminUser={isAdminUser}
 			/>
 		</>
 	);
