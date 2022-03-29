@@ -3,16 +3,19 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import CircularProgress from '@mui/material/CircularProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Button, ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup, Tooltip } from '@mui/material';
 
 export default function CustomersDataGrid({
 	customers,
 	handleEditOnClick,
 	handleDeleteOnClick,
+    isAdminUser
 }) {
 	const getCell = (params) => {
 		return (
 			<>
+            <Tooltip title="Admin only" placement="bottom" arrow>
+
 				<ButtonGroup>
 					<Button
 						type='button'
@@ -21,7 +24,8 @@ export default function CustomersDataGrid({
 						size='small'
 						color='info'
 						variant='text'
-					>
+                        disabled={!isAdminUser}
+                        >
 						<EditIcon />
 					</Button>
 					<Button
@@ -31,10 +35,12 @@ export default function CustomersDataGrid({
 						size='small'
 						color='error'
 						variant='text'
-					>
+                        disabled={!isAdminUser}
+                        >
 						<DeleteForeverIcon />
 					</Button>
 				</ButtonGroup>
+                        </Tooltip>
 			</>
 		);
 	};
