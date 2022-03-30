@@ -9,11 +9,16 @@ import {
 import { AuthContext } from '../../context/authContext';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Button } from '@mui/material';
+import { createCustomer } from '../../redux/actions/customerActions';
 
 const Customers = () => {
 	const { user } = useContext(AuthContext);
 	const isAdminUser =
-		user && user.app_metadata.roles && user.app_metadata.roles.includes('admin') ? true : false;
+		user &&
+		user.app_metadata.roles &&
+		user.app_metadata.roles.includes('admin')
+			? true
+			: false;
 	const dispatch = useDispatch();
 	const customers = useSelector(
 		(state: any) => state.customerReducer.customers
@@ -27,19 +32,20 @@ const Customers = () => {
 		setShowModal(false);
 	};
 
-    const handleCancel = () => {
-        setShowModal(false)
-    }
+	const handleCancel = () => {
+		setShowModal(false);
+	};
 
-    const handleAddOnClick = () => { 
-        setShowModal(true);
-        setModalType('Add')
-     }
+	const handleAddOnClick = () => {
+		setShowModal(true);
+		setModalType('Add');
+	};
 
-     const handleAddConfirm = () => {
-        setShowModal(false)
-         console.log('handle add confirm fired')
-     }
+	const handleAddConfirm = (e, formData) => {
+		e.preventDefault();
+		dispatch(createCustomer(formData));
+		setShowModal(false);
+	};
 
 	const handleEditOnClick = (row) => {
 		console.log(row);
@@ -48,11 +54,11 @@ const Customers = () => {
 		setModalType('Edit');
 	};
 
-    const handleEditConfirm = (selectedRow) => {
-        setShowModal(false)
-        console.log('handle edit confirm fired')
-        console.log(selectedRow)
-    }
+	const handleEditConfirm = (selectedRow) => {
+		setShowModal(false);
+		console.log('handle edit confirm fired');
+		console.log(selectedRow);
+	};
 
 	const handleDeleteOnClick = (row) => {
 		console.log(row);
@@ -72,14 +78,13 @@ const Customers = () => {
 
 	return (
 		<>
-        {console.log(user)}
 			<CustomersModal
 				showModal={showModal}
 				handleCloseModal={handleCloseModal}
-                handleAddConfirm={handleAddConfirm}
-                handleEditConfirm={handleEditConfirm}
+				handleAddConfirm={handleAddConfirm}
+				handleEditConfirm={handleEditConfirm}
 				handleDeleteConfirm={handleDeleteConfirm}
-                handleCancel={handleCancel}
+				handleCancel={handleCancel}
 				modalType={modalType}
 				selectedRow={selectedRow}
 			/>

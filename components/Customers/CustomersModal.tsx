@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { TextField } from '@mui/material';
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -28,6 +30,21 @@ export const ModalType = ({
 	handleDeleteConfirm,
 	handleCancel,
 }) => {
+	const [formData, setFormData] = useState({
+		id: '',
+		name: '',
+		email: '',
+		plan: '',
+	});
+
+	const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+		console.log(e.target.value);
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		} as any);
+	};
+
 	if (modalType === 'Add') {
 		return (
 			<>
@@ -37,18 +54,60 @@ export const ModalType = ({
 				<Typography id='modal-modal-description' sx={{ mt: 2 }}>
 					Add customer
 				</Typography>
-				<div
-					style={{
-						alignSelf: 'flex-end',
-						cursor: 'pointer',
-					}}
-				>
-					<CheckCircleIcon
-						onClick={() => handleAddConfirm(selectedRow)}
-						color='success'
-					/>
-					<CancelIcon onClick={handleCancel} color='error' />
-				</div>
+				<form onSubmit={(e) => handleAddConfirm(e, formData)}>
+					<Box
+						sx={{
+							width: 300,
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'space-between',
+							alignItems: 'flex-start',
+							padding: 1,
+						}}
+					>
+						<TextField
+							id='name'
+							label='Name'
+							variant='standard'
+							type='text'
+							name='name'
+							value={formData.name}
+							onChange={handleInputOnChange}
+						/>
+						<TextField
+							id='email'
+							label='Email'
+							variant='standard'
+							type='text'
+							name='email'
+							value={formData.email}
+							onChange={handleInputOnChange}
+						/>
+						<TextField
+							id='plan'
+							label='Plan'
+							variant='standard'
+							type='text'
+							name='plan'
+							value={formData.plan}
+							onChange={handleInputOnChange}
+						/>
+					</Box>
+
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'flex-end',
+						}}
+					>
+						<Button type='submit'>
+							<CheckCircleIcon color='success' />
+						</Button>
+						<Button type='button'>
+							<CancelIcon onClick={handleCancel} color='error' />
+						</Button>
+					</Box>
+				</form>
 			</>
 		);
 	} else if (modalType === 'Edit') {
@@ -104,8 +163,8 @@ export const ModalType = ({
 export default function CustomersModal({
 	showModal,
 	handleCloseModal,
-    handleAddConfirm,
-    handleEditConfirm,
+	handleAddConfirm,
+	handleEditConfirm,
 	handleDeleteConfirm,
 	handleCancel,
 	modalType,
@@ -129,8 +188,8 @@ export default function CustomersModal({
 					<ModalType
 						modalType={modalType}
 						selectedRow={selectedRow}
-                        handleAddConfirm={handleAddConfirm}
-                        handleEditConfirm={handleEditConfirm}
+						handleAddConfirm={handleAddConfirm}
+						handleEditConfirm={handleEditConfirm}
 						handleDeleteConfirm={handleDeleteConfirm}
 						handleCancel={handleCancel}
 					/>
