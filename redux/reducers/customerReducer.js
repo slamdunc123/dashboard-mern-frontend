@@ -2,6 +2,7 @@ import {
 	GET_CUSTOMERS,
 	CREATE_CUSTOMER,
 	DELETE_CUSTOMER,
+	UPDATE_CUSTOMER,
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +32,19 @@ export default function customerReducer(state = initialState, action) {
 				customers: state.customers.filter(
 					(customer) => customer._id !== payload
 				),
+			};
+		case UPDATE_CUSTOMER:
+			console.log('UPDATE_CUSTOMER', payload);
+			const index = state.customers.findIndex(
+				(customer) => customer._id === payload.customer._id
+			); //finding index of the item
+			const updatedCustomers = [...state.customers]; //make new array
+			updatedCustomers[index].name = payload.customer.name; //change values in the new array
+			updatedCustomers[index].email = payload.customer.email;
+			updatedCustomers[index].plan = payload.customer.plan;
+			return {
+				...state,
+				customers: updatedCustomers,
 			};
 
 		default:

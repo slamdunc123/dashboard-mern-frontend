@@ -5,11 +5,12 @@ import CustomersModal from './CustomersModal';
 import {
 	getCustomers,
 	deleteCustomer,
+	createCustomer,
+	updateCustomer,
 } from '../../redux/actions/customerActions';
 import { AuthContext } from '../../context/authContext';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Button } from '@mui/material';
-import { createCustomer } from '../../redux/actions/customerActions';
 
 const Customers = () => {
 	const { user } = useContext(AuthContext);
@@ -27,6 +28,12 @@ const Customers = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [modalType, setModalType] = useState('');
 	const [selectedRow, setSelectedRow] = useState();
+    const [editedCustomer, setEditedCustomer] = useState({
+		id: '',
+		name: '',
+        email: '',
+        plan: '',
+	});
 
 	const handleCloseModal = () => {
 		setShowModal(false);
@@ -49,15 +56,22 @@ const Customers = () => {
 
 	const handleEditOnClick = (row) => {
 		console.log(row);
+        setEditedCustomer({
+			id: row._id,
+			name: row.name,
+			email: row.email,
+			plan: row.plan,
+		});
 		setSelectedRow(row);
 		setShowModal(true);
 		setModalType('Edit');
 	};
 
-	const handleEditConfirm = (selectedRow) => {
+	const handleEditConfirm = (e, formData) => {
+		e.preventDefault();
+		dispatch(updateCustomer(editedCustomer.id, formData));
 		setShowModal(false);
 		console.log('handle edit confirm fired');
-		console.log(selectedRow);
 	};
 
 	const handleDeleteOnClick = (row) => {

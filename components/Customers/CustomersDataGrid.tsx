@@ -14,7 +14,7 @@ export default function CustomersDataGrid({
 	const getCell = (params) => {
 		return (
 			<>
-				<Tooltip title='Admin only' placement='bottom' arrow>
+				<Tooltip title={isAdminUser ? '' : 'Admin only'} placement='bottom' arrow>
 					<ButtonGroup>
 						<Button
 							type='button'

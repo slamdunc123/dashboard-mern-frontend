@@ -1,4 +1,4 @@
-import { GET_CUSTOMERS, CREATE_CUSTOMER, DELETE_CUSTOMER } from './types';
+import { GET_CUSTOMERS, CREATE_CUSTOMER, DELETE_CUSTOMER, UPDATE_CUSTOMER } from './types';
 import axios from 'axios';
 import uri from '../../domain';
 
@@ -47,6 +47,27 @@ export const deleteCustomer = (id) => async (dispatch) => {
 		dispatch({
 			type: DELETE_CUSTOMER,
 			payload: id,
+		});
+	} catch (err) {
+		console.error(err.error);
+	}
+};
+
+// update customer by id
+
+export const updateCustomer = (id, formData) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	const body = formData;
+	try {
+		const res = await axios.put(`${uri}/api/customers/${id}`, body, config);
+        console.log('res', res)
+		dispatch({
+			type: UPDATE_CUSTOMER,
+			payload: res.data,
 		});
 	} catch (err) {
 		console.error(err.error);
