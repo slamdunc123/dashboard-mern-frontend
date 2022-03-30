@@ -5,16 +5,32 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Button, ButtonGroup, Tooltip } from '@mui/material';
 
+interface Customer { 
+    _id: string,
+    name: string,
+    email: string,
+    plan: string
+}
+interface CustomerDataGridProps {
+	customers: Customer[];
+	handleEditOnClick: (row: Customer) => void;
+	handleDeleteOnClick: (row: Customer) => void;
+	isAdminUser: boolean;
+}
 export default function CustomersDataGrid({
 	customers,
 	handleEditOnClick,
 	handleDeleteOnClick,
 	isAdminUser,
-}) {
-	const getCell = (params) => {
+}: CustomerDataGridProps) {
+	const getCell = (params: { row: Customer; }) => {
 		return (
 			<>
-				<Tooltip title={isAdminUser ? '' : 'Admin only'} placement='bottom' arrow>
+				<Tooltip
+					title={isAdminUser ? '' : 'Admin only'}
+					placement='bottom'
+					arrow
+				>
 					<ButtonGroup>
 						<Button
 							type='button'

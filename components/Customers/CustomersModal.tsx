@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect, MouseEvent, FormEvent } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -22,6 +22,27 @@ const style = {
 	flexDirection: 'column',
 };
 
+interface Customer {
+    _id: string,
+    name: string,
+    email: string,
+    plan: string,
+}
+interface ModalTypeProps {
+	modalType: string,
+	selectedRow: Customer,
+	handleAddConfirm: (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => void;
+	handleEditConfirm: (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => void;
+	handleDeleteConfirm: (id: string) => void;
+	handleCancel: () => void;
+}
+
 export const ModalType = ({
 	modalType,
 	selectedRow,
@@ -29,9 +50,9 @@ export const ModalType = ({
 	handleEditConfirm,
 	handleDeleteConfirm,
 	handleCancel,
-}) => {
+}: ModalTypeProps) => {
 	const [formData, setFormData] = useState({
-		id: '',
+		_id: '',
 		name: '',
 		email: '',
 		plan: '',
@@ -52,6 +73,7 @@ export const ModalType = ({
 	if (modalType === 'Add') {
 		return (
 			<>
+            {console.log(selectedRow)}
 				<Typography id='modal-modal-description' sx={{ mt: 2 }}>
 					Add customer
 				</Typography>
@@ -209,6 +231,25 @@ export const ModalType = ({
 		);
 };
 
+interface CustomerModalProps {
+    showModal: boolean,
+    modalType: string,
+	selectedRow: Customer,
+	handleAddConfirm: (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => void;
+	handleEditConfirm: (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => void;
+	handleDeleteConfirm: (id: string) => void;
+	handleCancel: () => void;
+    handleCloseModal: () => void,
+    
+
+}
+
 export default function CustomersModal({
 	showModal,
 	handleCloseModal,
@@ -218,7 +259,7 @@ export default function CustomersModal({
 	handleCancel,
 	modalType,
 	selectedRow,
-}) {
+}: CustomerModalProps) {
 	return (
 		<div>
 			{console.log(modalType)}

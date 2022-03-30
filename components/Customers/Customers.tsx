@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+	useState,
+	useEffect,
+	useContext,
+	MouseEvent,
+	FormEvent,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomersDataGrid from './CustomersDataGrid';
 import CustomersModal from './CustomersModal';
@@ -12,8 +18,18 @@ import { AuthContext } from '../../context/authContext';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Button } from '@mui/material';
 
+interface Customer {
+	_id: string;
+	name: string;
+	email: string;
+	plan: string;
+}
+
+
 const Customers = () => {
 	const { user } = useContext(AuthContext);
+    console.log("slamdunc ~ file: Customers.tsx ~ line 33 ~ Customers ~ user", user)
+
 	const isAdminUser =
 		user &&
 		user.app_metadata.roles &&
@@ -27,12 +43,17 @@ const Customers = () => {
 
 	const [showModal, setShowModal] = useState(false);
 	const [modalType, setModalType] = useState('');
-	const [selectedRow, setSelectedRow] = useState();
-    const [editedCustomer, setEditedCustomer] = useState({
+	const [selectedRow, setSelectedRow] = useState({
+		_id: '',
+		name: '',
+		email: '',
+		plan: '',
+	});
+	const [editedCustomer, setEditedCustomer] = useState({
 		id: '',
 		name: '',
-        email: '',
-        plan: '',
+		email: '',
+		plan: '',
 	});
 
 	const handleCloseModal = () => {
@@ -48,15 +69,18 @@ const Customers = () => {
 		setModalType('Add');
 	};
 
-	const handleAddConfirm = (e, formData) => {
+	const handleAddConfirm = (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => {
 		e.preventDefault();
 		dispatch(createCustomer(formData));
 		setShowModal(false);
 	};
 
-	const handleEditOnClick = (row) => {
+	const handleEditOnClick = (row: Customer) => {
 		console.log(row);
-        setEditedCustomer({
+		setEditedCustomer({
 			id: row._id,
 			name: row.name,
 			email: row.email,
@@ -67,21 +91,24 @@ const Customers = () => {
 		setModalType('Edit');
 	};
 
-	const handleEditConfirm = (e, formData) => {
+	const handleEditConfirm = (
+		e: FormEvent<HTMLFormElement>,
+		formData: object
+	) => {
 		e.preventDefault();
 		dispatch(updateCustomer(editedCustomer.id, formData));
 		setShowModal(false);
 		console.log('handle edit confirm fired');
 	};
 
-	const handleDeleteOnClick = (row) => {
+	const handleDeleteOnClick = (row: Customer) => {
 		console.log(row);
 		setSelectedRow(row);
 		setShowModal(true);
 		setModalType('Delete');
 	};
 
-	const handleDeleteConfirm = (id) => {
+	const handleDeleteConfirm = (id: string) => {
 		dispatch(deleteCustomer(id));
 		setShowModal(false);
 	};
