@@ -24,7 +24,7 @@ const UserAccMenu = ({
 		handleCloseUserMenu();
 	};
 	return (
-		<Box sx={{ flexGrow: 0, marginLeft: 'auto' }}>
+		<Box>
 			<Tooltip title='Open settings'>
 				<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 					<AccountCircleIcon

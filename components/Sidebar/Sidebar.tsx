@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -20,6 +20,7 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import CategoryIcon from '@mui/icons-material/Category';
 import Link from 'next/link';
 import UserAccMenu from '../UserAccMenu/UserAccMenu';
+import { AuthContext } from '../../context/authContext';
 
 type SidebarProps = {
 	children?: React.ReactNode;
@@ -76,9 +77,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-const Sidebar = ({children}) => {
+export const UserEmail = ({ user, isAdminUser }) => {
+	if (!user) return null;
+	if (isAdminUser) {
+		return <>{`${user.email} (admin)`}</>;
+	} else return <>{`${user.email} (user)`}</>;
+};
+
+const Sidebar = ({ children }) => {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
+	const { user } = useContext(AuthContext);
+	const isAdminUser =
+		user && user.app_metadata.roles && user.app_metadata.roles.includes('admin') ? true : false;
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -117,6 +128,14 @@ const Sidebar = ({children}) => {
 					<Typography variant='h6' noWrap component='div'>
 						Dashboard
 					</Typography>
+					<Typography
+						variant='body2'
+						noWrap
+						component='div'
+						sx={{ marginLeft: 'auto' }}
+					>
+						<UserEmail user={user} isAdminUser={isAdminUser} />
+					</Typography>
 					<UserAccMenu
 						anchorElUser={anchorElUser}
 						handleOpenUserMenu={handleOpenUserMenu}
@@ -148,7 +167,6 @@ const Sidebar = ({children}) => {
 				</DrawerHeader>
 				<Divider />
 				<List>
-					
 					<Link href='/customers' passHref>
 						<ListItem
 							button

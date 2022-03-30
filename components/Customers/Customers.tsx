@@ -13,7 +13,7 @@ import { Button } from '@mui/material';
 const Customers = () => {
 	const { user } = useContext(AuthContext);
 	const isAdminUser =
-		user && user.app_metadata.roles[0].includes('admin') ? true : false;
+		user && user.app_metadata.roles && user.app_metadata.roles.includes('admin') ? true : false;
 	const dispatch = useDispatch();
 	const customers = useSelector(
 		(state: any) => state.customerReducer.customers
@@ -72,6 +72,7 @@ const Customers = () => {
 
 	return (
 		<>
+        {console.log(user)}
 			<CustomersModal
 				showModal={showModal}
 				handleCloseModal={handleCloseModal}
