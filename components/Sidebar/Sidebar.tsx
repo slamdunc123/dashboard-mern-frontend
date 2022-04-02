@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import PeopleIcon from '@mui/icons-material/People';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import CategoryIcon from '@mui/icons-material/Category';
+import CurrencyPoundIcon from '@mui/icons-material/CurrencyPound';
 import Link from 'next/link';
 import UserAccMenu from '../UserAccMenu/UserAccMenu';
 import { AuthContext } from '../../context/authContext';
@@ -196,6 +197,14 @@ const Sidebar = ({ children }) => {
 								<CategoryIcon />
 							</ListItemIcon>
 							<ListItemText primary='Products' />
+						</ListItem>
+					</Link>
+					<Link href='/pricing' passHref>
+						<ListItem button component='a'>
+							<ListItemIcon>
+								<CurrencyPoundIcon />
+							</ListItemIcon>
+							<ListItemText primary='Pricing' />
 						</ListItem>
 					</Link>
 				</List>
